@@ -178,34 +178,29 @@ canvas{width:100%;display:block;}
 .compo{display:flex;height:16px;border-radius:99px;overflow:hidden;background:var(--soft);margin-top:20px;border:1px solid var(--line);}
 .compo div{transition:width .4s;}
 
-/* DISEÑO DE BILLETES MEJORADO */
-.bills{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px 20px;}
-.bill{transition:all .3s cubic-bezier(0.25, 0.8, 0.25, 1);}
+/* DISEÑO DE BILLETES CON IMÁGENES REALES */
+.bills{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px 20px;}
+.bill{transition:all .3s cubic-bezier(0.25, 0.8, 0.25, 1); display:flex; flex-direction:column; align-items:center;}
 .bill:hover{transform:translateY(-4px) scale(1.02);}
-.bill.off .note{filter:saturate(.3);opacity:.5;}
-.note{position:relative;overflow:hidden;border-radius:20px;min-height:150px;padding:30px 20px 16px;display:flex;align-items:center;gap:16px;color:var(--ink);
-  background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:inset 0 0 0 2px var(--edge),0 12px 24px -8px rgba(0,0,0,.2);transition:.3s;}
-.note::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,var(--pat) 0 1.5px,transparent 1.5px 10px),repeating-linear-gradient(-45deg,var(--pat) 0 1.5px,transparent 1.5px 10px);opacity:.6;}
-.note::after{content:"";position:absolute;right:-50px;top:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,var(--pat) 0 35%,transparent 36%),repeating-radial-gradient(circle,transparent 0 6px,var(--pat) 6px 7px);opacity:.9;}
-.note > *{position:relative;z-index:1;}
-.bill.s2 .note{box-shadow:inset 0 0 0 2px var(--edge),0 6px 0 -2px var(--c2),0 6px 0 -1px rgba(0,0,0,.1),0 14px 24px -8px rgba(0,0,0,.2);}
-.bill.s3 .note{box-shadow:inset 0 0 0 2px var(--edge),0 6px 0 -2px var(--c2),0 6px 0 -1px rgba(0,0,0,.1),0 12px 0 -4px var(--c2),0 12px 0 -3px rgba(0,0,0,.1),0 20px 28px -8px rgba(0,0,0,.2);}
-.note .corner{position:absolute;top:10px;left:16px;font-size:14px;font-weight:800;letter-spacing:.5px;opacity:.8;}
-.note .rep{position:absolute;top:10px;right:16px;font-size:10px;font-weight:800;letter-spacing:2px;opacity:.6;}
-.note .serial{position:absolute;left:16px;bottom:10px;font-size:10px;letter-spacing:2px;opacity:.5;font-weight:600;}
-.medals{display:flex;flex:none;}
-.medal{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;border:3px solid var(--edge);background:rgba(255,255,255,.2);box-shadow:inset 0 0 0 4px rgba(255,255,255,.15);font-size:34px;line-height:1;}
-.medal + .medal{margin-left:-20px;}
-.note .txt{flex:1;text-align:right;min-width:0;}
-.note .amt{font-size:clamp(28px,7vw,36px);font-weight:900;letter-spacing:-1px;line-height:1;}
-.note .who{font-size:13px;font-weight:800;margin-top:8px;line-height:1.2;}
-.note .tag{font-size:11px;opacity:.8;margin-top:4px;text-transform:uppercase;letter-spacing:1px;font-weight:700;}
-.bctrl{display:flex;align-items:center;gap:12px;margin-top:16px;}
-.bctrl button{width:44px;height:44px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--text);font-size:22px;font-weight:700;cursor:pointer;transition:all .2s;line-height:1;display:grid;place-items:center;}
-.bctrl button:hover{background:var(--primary);border-color:var(--primary);color:#fff;transform:scale(1.1);}
-.bctrl button:active{transform:scale(0.9);}
-.bctrl input{width:80px;text-align:center;font-weight:800;padding:10px;font-size:16px;border-radius:12px;}
-.bctrl .sub{margin-left:auto;font-weight:800;font-size:15px;}
+.bill.off .note-img {filter:saturate(.3) opacity(0.5);}
+.bill.off .bctrl {opacity: 0.7;}
+
+.note-img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: all .3s;
+  border: 2px solid var(--line);
+  object-fit: cover;
+  aspect-ratio: 2.1 / 1;
+}
+
+.bctrl{display:flex; align-items:center; gap:8px; margin-top:16px; width: 100%; background:var(--card); border:2px solid var(--line); padding:6px; border-radius:14px;}
+.bctrl button{width:40px;height:40px;border-radius:10px;border:0;background:var(--soft);color:var(--text);font-size:20px;font-weight:700;cursor:pointer;transition:all .2s;display:grid;place-items:center;}
+.bctrl button:hover{background:var(--primary);color:#fff;transform:scale(1.05);}
+.bctrl button:active{transform:scale(0.95);}
+.bctrl input{flex:1; text-align:center;font-weight:800;padding:8px;font-size:16px;border-radius:10px; border:1px solid var(--line); background:var(--soft);}
+.bctrl .sub{font-weight:800;font-size:15px; padding:0 10px; white-space:nowrap;}
 
 .gcard{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:20px;border:1px solid var(--line);border-left:6px solid transparent; 
   background-image:linear-gradient(var(--card),var(--card)), linear-gradient(180deg,var(--gc) 0%,var(--gc2) 100%); 
@@ -456,16 +451,19 @@ const BRAND_LOGOS = {
   'Ahorros': '<i class="fa-solid fa-piggy-bank" style="color:#f59e0b;"></i>'
 };
 
+// URLs DE LAS IMÁGENES REALES DE LOS BILLETES
 const DENOMS = [
-  {v:20000,c1:'#f8f1d2',c2:'#e7d9a1',ink:'#4a3d10',pat:'rgba(120,95,20,.10)',edge:'rgba(120,95,20,.28)',who:'Juan Bautista Alberdi',tag:'Héroes de la Patria',faces:['🧔🏻‍♂️']},
-  {v:10000,c1:'#d4eefb',c2:'#93cdee',ink:'#103e57',pat:'rgba(20,90,140,.11)',edge:'rgba(20,90,140,.28)',who:'Manuel Belgrano y María Remedios del Valle',tag:'Héroes de la Patria',faces:['🇦🇷','🪖']},
-  {v:2000, c1:'#f1f2f4',c2:'#c2c7cf',ink:'#2d3440',pat:'rgba(60,70,90,.09)',edge:'rgba(60,70,90,.25)',who:'Dra. Cecilia Grierson',tag:'Ciencia y salud',faces:['👩🏻‍⚕️']},
-  {v:1000, c1:'#fbab55',c2:'#e06f16',ink:'#ffffff',pat:'rgba(255,255,255,.16)',edge:'rgba(255,255,255,.4)',who:'Hornero',tag:'Fauna autóctona',emoji:'🐦'},
-  {v:500,  c1:'#62c983',c2:'#2c9654',ink:'#ffffff',pat:'rgba(255,255,255,.16)',edge:'rgba(255,255,255,.4)',who:'Yaguareté',tag:'Fauna autóctona',emoji:'🐆'},
-  {v:200,  c1:'#4fc7e8',c2:'#1d88bd',ink:'#ffffff',pat:'rgba(255,255,255,.16)',edge:'rgba(255,255,255,.4)',who:'Ballena Franca Austral',tag:'Fauna autóctona',emoji:'🐋'},
-  {v:100,  c1:'#a878dc',c2:'#6b3bb0',ink:'#ffffff',pat:'rgba(255,255,255,.16)',edge:'rgba(255,255,255,.4)',who:'Taruca',tag:'Fauna autóctona',emoji:'🦌'},
-  {v:50,   c1:'#52d6b4',c2:'#1d9a9a',ink:'#ffffff',pat:'rgba(255,255,255,.16)',edge:'rgba(255,255,255,.4)',who:'Cóndor Andino',tag:'Fauna autóctona',emoji:'🦅'}
+  {v:20000, img:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Billete_de_20000_pesos_argentinos_frente.png/800px-Billete_de_20000_pesos_argentinos_frente.png', who:'Juan Bautista Alberdi'},
+  {v:10000, img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Billete_de_10000_pesos_argentinos_frente.png/800px-Billete_de_10000_pesos_argentinos_frente.png', who:'Manuel Belgrano y M. Remedios del Valle'},
+  {v:2000, img:'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Billete_de_2000_pesos_argentinos_frente.png/800px-Billete_de_2000_pesos_argentinos_frente.png', who:'Cecilia Grierson y Ramón Carrillo'},
+  {v:1000, img:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Billete_de_1000_pesos_argentinos_frente.png/800px-Billete_de_1000_pesos_argentinos_frente.png', who:'Hornero'},
+  {v:500,  img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Billete_de_500_pesos_argentinos_frente.png/800px-Billete_de_500_pesos_argentinos_frente.png', who:'Yaguareté'},
+  {v:200,  img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Billete_de_200_pesos_argentinos_frente.png/800px-Billete_de_200_pesos_argentinos_frente.png', who:'Ballena Franca Austral'},
+  {v:100,  img:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Billete_de_100_pesos_argentinos_frente.png/800px-Billete_de_100_pesos_argentinos_frente.png', who:'Taruca'},
+  {v:50,   img:'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Billete_de_50_pesos_argentinos_frente.png/800px-Billete_de_50_pesos_argentinos_frente.png', who:'Cóndor Andino'},
+  {v:20,   img:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Billete_de_20_pesos_argentinos_frente.png/800px-Billete_de_20_pesos_argentinos_frente.png', who:'Guanaco'}
 ];
+
 const CATS = {
   gasto:['Comida','Transporte','Vivienda','Servicios','Salud','Ocio','Compras','Educación','Otros'],
   ingreso:['Sueldo','Ventas','Inversiones','Regalo','Otros']
@@ -630,16 +628,15 @@ function renderSelects(){
 }
 
 function billHTML(d){
-  const medals = (d.faces||[d.emoji]).map(e=>`<div class="medal">${e}</div>`).join('');
   const f=d.v.toLocaleString('es-AR');
   return `<div class="bill" data-d="${d.v}">
-    <div class="note" style="--c1:${d.c1};--c2:${d.c2};--ink:${d.ink};--pat:${d.pat};--edge:${d.edge}">
-      <span class="corner">${f}</span><span class="rep">REPÚBLICA ARGENTINA</span>
-      <div class="medals">${medals}</div>
-      <div class="txt"><div class="amt">$${f}</div><div class="who">${esc(d.who)}</div><div class="tag">${esc(d.tag)}</div></div>
-      <span class="serial">SERIE A · ${String(d.v).padStart(8,'0')}</span>
+    <img class="note-img" src="${d.img}" alt="Billete de ${f}" loading="lazy">
+    <div class="bctrl">
+      <button data-a="-" aria-label="Quitar uno">−</button>
+      <input type="number" min="0" inputmode="numeric" aria-label="Cantidad de billetes de ${f}">
+      <button data-a="+" aria-label="Agregar uno">+</button>
+      <span class="sub"></span>
     </div>
-    <div class="bctrl"><button data-a="-" aria-label="Quitar uno">−</button><input type="number" min="0" inputmode="numeric" aria-label="Cantidad de billetes de ${f}"><button data-a="+" aria-label="Agregar uno">+</button><span class="sub"></span></div>
   </div>`;
 }
 function renderBills(){
@@ -647,7 +644,7 @@ function renderBills(){
   if(!el.children.length){
     el.innerHTML=DENOMS.map(billHTML).join('');
     el.querySelectorAll('.bill').forEach(b=>{
-      const d=+b.dataset.d, inp=b.querySelector('input'), note=b.querySelector('.note');
+      const d=+b.dataset.d, inp=b.querySelector('input'), note=b.querySelector('.note-img');
       b.querySelectorAll('button').forEach(btn=>btn.onclick=()=>{
         S.bills[d]=Math.max(0,(S.bills[d]||0)+(btn.dataset.a==='+'?1:-1)); save(); updBills();
         note.animate([{transform:'scale(1)'},{transform:'scale(1.05)'},{transform:'scale(1)'}],{duration:200});
@@ -664,11 +661,11 @@ function updBills(skipInputs){
     const d=+b.dataset.d,n=S.bills[d]||0;
     if(!skipInputs) b.querySelector('input').value=n;
     b.querySelector('.sub').textContent=fmt(d*n);
-    b.classList.toggle('off',n===0); b.classList.toggle('s2',n>=2&&n<10); b.classList.toggle('s3',n>=10);
+    b.classList.toggle('off',n===0);
   });
   $('#b-total').textContent=fmt(total);
   $('#b-count').textContent=count+(count===1?' billete':' billetes');
-  $('#compo').innerHTML=total?DENOMS.filter(d=>S.bills[d.v]).map(d=>`<div title="$${d.v.toLocaleString('es-AR')} × ${S.bills[d.v]}" style="width:${d.v*S.bills[d.v]/total*100}%;background:${d.c2}"></div>`).join(''):'';
+  $('#compo').innerHTML=total?DENOMS.filter(d=>S.bills[d.v]).map(d=>`<div title="$${d.v.toLocaleString('es-AR')} × ${S.bills[d.v]}" style="width:${d.v*S.bills[d.v]/total*100}%;background:var(--primary)"></div>`).join(''):'';
 }
 $('#b-reset').onclick=()=>{ DENOMS.forEach(d=>S.bills[d.v]=0); save(); updBills(); };
 $('#b-save').onclick=()=>{

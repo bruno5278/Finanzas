@@ -177,6 +177,8 @@ canvas{width:100%;display:block;}
 .cash-top small{color:var(--muted);font-weight:600;font-size:14px;}
 .compo{display:flex;height:16px;border-radius:99px;overflow:hidden;background:var(--soft);margin-top:20px;border:1px solid var(--line);}
 .compo div{transition:width .4s;}
+
+/* DISEÑO DE BILLETES MEJORADO */
 .bills{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px 20px;}
 .bill{transition:all .3s cubic-bezier(0.25, 0.8, 0.25, 1);}
 .bill:hover{transform:translateY(-4px) scale(1.02);}
@@ -216,25 +218,27 @@ canvas{width:100%;display:block;}
 .gbar{display:flex;height:16px;border-radius:99px;overflow:hidden;background:var(--soft);border:1px solid var(--line);margin:12px 0;}
 .gbar div{transition:width .4s;}
 
-/* DISEÑO DE LOS DESTINOS MEJORADO */
+/* DISEÑO DE LOS DESTINOS EN COLUMNA */
 .gparts{display:grid;gap:12px;margin-top:16px;}
 .gpart{
-  display:grid;
-  grid-template-columns: 1fr 65px 100px 36px;
-  gap:8px;
-  align-items:center;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
   background:var(--soft);
-  padding:10px;
+  padding:16px;
   border-radius:16px;
   border:1px solid var(--line);
   transition:all .2s;
 }
 .gpart:hover{ background:var(--card); border-color:var(--primary); }
-.gpart input[type=text]{ padding:12px 14px; font-size:14px; font-weight:700; border-radius:12px; background:var(--card); border:1px solid var(--line); }
-.gpart input[type=number]{ padding:12px 8px; font-size:14px; font-weight:800; text-align:center; border-radius:12px; background:var(--card); border:1px solid var(--line); }
-.gpart .gamt{ font-size:14px; font-weight:800; text-align:right; color:var(--gc); white-space:nowrap; }
-.gpart .x{ padding:6px; display:grid; place-items:center; font-size:18px; border-radius:10px; background:var(--card); border:1px solid var(--line); transition:all .2s; }
+.gpart .top-row { display:flex; gap:10px; width:100%; align-items:center; }
+.gpart input[type=text]{ flex:1; padding:12px 14px; font-size:15px; font-weight:700; border-radius:12px; background:var(--card); border:2px solid var(--line); }
+.gpart input[type=number]{ width:80px; padding:12px 8px; font-size:15px; font-weight:800; text-align:center; border-radius:12px; background:var(--card); border:2px solid var(--line); }
+.gpart .x{ padding:8px 12px; display:grid; place-items:center; font-size:16px; border-radius:12px; background:var(--card); border:2px solid var(--line); transition:all .2s; color:var(--gas); }
 .gpart .x:hover{ background:var(--gas); color:#fff; border-color:var(--gas); }
+.gpart .bottom-row { display:flex; justify-content:space-between; align-items:center; padding:0 4px; }
+.gpart .gamt{ font-size:16px; font-weight:800; color:var(--gc); }
+.gpart .glbl { font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; }
 
 .gadd{width:auto;padding:10px 16px;font-size:14px;margin-top:16px;}
 .gwarn{color:var(--gas);font-size:13px;font-weight:700;margin-top:8px;display:flex;align-items:center;gap:6px;}
@@ -876,10 +880,15 @@ function renderGroups(){
     }).join('');
     const parts=g.parts.map((p,i)=>`
       <div class="gpart" data-pid="${p.id}">
-        <input type="text" value="${esc(p.name)}" maxlength="30" data-field="name">
-        <input type="number" min="0" max="100" step="0.1" value="${p.pct}" data-field="pct">
-        <span class="gamt">${fmt(total*p.pct/100)}</span>
-        <button class="x" type="button" data-del-part="${p.id}" title="Quitar"><i class="fa-solid fa-trash"></i></button>
+        <div class="top-row">
+          <input type="text" value="${esc(p.name)}" maxlength="30" data-field="name" placeholder="Nombre (Ej: Sueldo)">
+          <input type="number" min="0" max="100" step="0.1" value="${p.pct}" data-field="pct" placeholder="%">
+          <button class="x" type="button" data-del-part="${p.id}" title="Quitar"><i class="fa-solid fa-trash"></i></button>
+        </div>
+        <div class="bottom-row">
+          <span class="glbl">Monto asignado:</span>
+          <span class="gamt">${fmt(total*p.pct/100)}</span>
+        </div>
       </div>`).join('');
     return `<div class="gcard" style="--gc:${esc(g.color)};--gc2:${esc(g.color2||g.color)}" data-gid="${g.id}">
       <div class="ghead">

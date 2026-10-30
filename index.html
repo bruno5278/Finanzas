@@ -178,24 +178,67 @@ canvas{width:100%;display:block;}
 .compo{display:flex;height:16px;border-radius:99px;overflow:hidden;background:var(--soft);margin-top:20px;border:1px solid var(--line);}
 .compo div{transition:width .4s;}
 
-/* DISEÑO DE BILLETES CON IMÁGENES REALES */
-.bills{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px 20px;}
-.bill{transition:all .3s cubic-bezier(0.25, 0.8, 0.25, 1); display:flex; flex-direction:column; align-items:center;}
+/* DISEÑO DE BILLETES ILUSTRADOS (CSS) */
+.bills{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px 20px;}
+.bill{transition:all .3s cubic-bezier(0.25, 0.8, 0.25, 1); display:flex; flex-direction:column;}
 .bill:hover{transform:translateY(-4px) scale(1.02);}
-.bill.off .note-img {filter:saturate(.3) opacity(0.5);}
-.bill.off .bctrl {opacity: 0.7;}
+.bill.off .note-drawn {filter:saturate(.3) opacity(0.6);}
+.bill.off .bctrl {opacity: 0.8;}
 
-.note-img {
+.note-drawn {
+  position: relative;
   width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  transition: all .3s;
-  border: 2px solid var(--line);
-  object-fit: cover;
   aspect-ratio: 2.1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  border: 2px solid var(--line);
+  background: var(--nc1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
 }
 
-.bctrl{display:flex; align-items:center; gap:8px; margin-top:16px; width: 100%; background:var(--card); border:2px solid var(--line); padding:6px; border-radius:14px;}
+/* Patrón de textura de billete */
+.note-drawn::before {
+  content: ""; position: absolute; inset: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(255,255,255,0.2) 0%, transparent 50%),
+    repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0 2px, transparent 2px 8px);
+  opacity: 0.8;
+}
+
+/* Línea vertical de la izquierda */
+.note-drawn::after {
+  content: ""; position: absolute; left: 15%; top: 10%; bottom: 10%; width: 2px;
+  background: repeating-linear-gradient(to bottom, transparent, transparent 4px, var(--nc2) 4px, var(--nc2) 8px);
+  opacity: 0.5;
+}
+
+.note-drawn .val-big {
+  font-size: clamp(24px, 6vw, 36px); font-weight: 900; color: var(--nc2); 
+  z-index: 1; line-height: 1; letter-spacing: -1px; text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+}
+.note-drawn .val-small {
+  position: absolute; top: 12px; right: 14px; font-size: 14px; font-weight: 800; color: var(--nc2); opacity: 0.8;
+}
+.note-drawn .who-lbl {
+  position: absolute; bottom: 12px; left: 16px; font-size: 10px; font-weight: 700; color: var(--nc2); 
+  text-transform: uppercase; letter-spacing: 0.5px; z-index: 1; opacity: 0.8;
+}
+.note-drawn .medal-center {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 70px; height: 70px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+  border: 2px dashed var(--nc2); opacity: 0.4;
+}
+.note-drawn .animal-emoji {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  font-size: 44px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); z-index: 2;
+}
+
+.bctrl{display:flex; align-items:center; gap:8px; margin-top:12px; width: 100%; background:var(--card); border:2px solid var(--line); padding:6px; border-radius:14px;}
 .bctrl button{width:40px;height:40px;border-radius:10px;border:0;background:var(--soft);color:var(--text);font-size:20px;font-weight:700;cursor:pointer;transition:all .2s;display:grid;place-items:center;}
 .bctrl button:hover{background:var(--primary);color:#fff;transform:scale(1.05);}
 .bctrl button:active{transform:scale(0.95);}
@@ -451,17 +494,16 @@ const BRAND_LOGOS = {
   'Ahorros': '<i class="fa-solid fa-piggy-bank" style="color:#f59e0b;"></i>'
 };
 
-// ACÁ ESTÁN LAS IMÁGENES. ASEGURATE DE SUBIR LAS FOTOS CON ESTOS NOMBRES A GITHUB.
-// Si tus fotos son .png, cambiá la extensión acá abajo.
+// BILLETES DISEÑADOS CON COLORES Y EMOJIS COMO GRÁFICO
 const DENOMS = [
-  {v:20000, img:'billete20000.jpg', who:'Juan Bautista Alberdi'},
-  {v:10000, img:'billete10000.jpg', who:'Manuel Belgrano'},
-  {v:2000, img:'billete2000.jpg', who:'Cecilia Grierson'},
-  {v:1000, img:'billete1000.jpg', who:'San Martín / Hornero'},
-  {v:500,  img:'billete500.jpg', who:'Yaguareté'},
-  {v:200,  img:'billete200.jpg', who:'Ballena Franca'},
-  {v:100,  img:'billete100.jpg', who:'Taruca'},
-  {v:50,   img:'billete50.jpg', who:'Cóndor'}
+  {v:20000, c1:'#e8f5e9', c2:'#81c784', emoji:'🧔🏻‍♂️', who:'Juan Bautista Alberdi'},
+  {v:10000, c1:'#e3f2fd', c2:'#64b5f6', emoji:'👨🏻‍⚖️', who:'Manuel Belgrano'},
+  {v:2000,  c1:'#f5f5f5', c2:'#bdbdbd', emoji:'👩🏻‍⚕️', who:'Cecilia Grierson'},
+  {v:1000,  c1:'#fff3e0', c2:'#ffb74d', emoji:'🐦', who:'Hornero'},
+  {v:500,   c1:'#e8f5e9', c2:'#81c784', emoji:'🐆', who:'Yaguareté'},
+  {v:200,   c1:'#e0f7fa', c2:'#4dd0e1', emoji:'🐋', who:'Ballena Franca'},
+  {v:100,   c1:'#f3e5f5', c2:'#ba68c8', emoji:'🦌', who:'Taruca'},
+  {v:50,    c1:'#e0f2f1', c2:'#4db6ac', emoji:'🦅', who:'Cóndor'}
 ];
 
 const CATS = {
@@ -630,7 +672,13 @@ function renderSelects(){
 function billHTML(d){
   const f=d.v.toLocaleString('es-AR');
   return `<div class="bill" data-d="${d.v}">
-    <img class="note-img" src="${d.img}" alt="Billete de ${f}" loading="lazy">
+    <div class="note-drawn" style="--nc1:${d.c1};--nc2:${d.c2};">
+      <span class="val-small">$${f}</span>
+      <span class="val-big">$${f}</span>
+      <div class="medal-center"></div>
+      <span class="animal-emoji">${d.emoji}</span>
+      <span class="who-lbl">${esc(d.who)}</span>
+    </div>
     <div class="bctrl">
       <button data-a="-" aria-label="Quitar uno">−</button>
       <input type="number" min="0" inputmode="numeric" aria-label="Cantidad de billetes de ${f}">
@@ -644,7 +692,7 @@ function renderBills(){
   if(!el.children.length){
     el.innerHTML=DENOMS.map(billHTML).join('');
     el.querySelectorAll('.bill').forEach(b=>{
-      const d=+b.dataset.d, inp=b.querySelector('input'), note=b.querySelector('.note-img');
+      const d=+b.dataset.d, inp=b.querySelector('input'), note=b.querySelector('.note-drawn');
       b.querySelectorAll('button').forEach(btn=>btn.onclick=()=>{
         S.bills[d]=Math.max(0,(S.bills[d]||0)+(btn.dataset.a==='+'?1:-1)); save(); updBills();
         note.animate([{transform:'scale(1)'},{transform:'scale(1.05)'},{transform:'scale(1)'}],{duration:200});
